@@ -1,10 +1,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  /* ========== Base / Reset ========== */
   .font-jost {
     font-family: 'Jost', sans-serif;
   }
-  /* ========== Gift Button ========== */
+
   .gift-button {
     position: relative;
     overflow: hidden;
@@ -34,7 +33,7 @@
     fill: white;
     transition: fill 0.3s ease;
   }
-  /* ========== Mobile Menu - Card Style ========== */
+
   .mobile-menu {
     position: absolute;
     top: 100%;
@@ -53,18 +52,18 @@
     opacity: 1;
     transform: translateY(0);
   }
-  /* Navbar shadow when menu is open */
+
   .navbar-shadow {
     box-shadow: 0 2px 4px 0 #00000026;
   }
-  /* Card content */
+
   .menu-card {
     background: #f2f2f2;
     margin: 0 16px 16px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
-  /* Hamburger */
+
   .hamburger-btn {
     background: transparent;
     padding: 8px;
@@ -83,11 +82,11 @@
   .close-icon.show {
     display: block;
   }
-  /* ========== Navbar Section ========== */
+
   .banner-navbar {
     position: relative;
   }
-  /* Desktop Navbar */
+
   .navbar-desktop {
     display: none;
     max-width: 1440px;
@@ -134,7 +133,7 @@
     font-size: 16px;
     text-transform: uppercase;
   }
-  /* Mobile Navbar */
+
   .navbar-mobile {
     display: block;
   }
@@ -166,7 +165,7 @@
   .navbar-mobile-spacer {
     width: 2.5rem;
   }
-  /* Mobile Menu Card Inner */
+
   .menu-card-inner {
     padding: 25px;
     text-align: center;
@@ -184,7 +183,7 @@
     text-decoration: none;
     color: inherit;
   }
-  /* ========== Banner Section ========== */
+
   .banner-section {
     margin-left: auto;
     margin-right: auto;
@@ -254,7 +253,7 @@
     border: none;
     cursor: pointer;
   }
-  /* ===== Banner Button Hover Override ===== */
+
   .banner-cta-btn {
     background-color: black;
     color: white;
@@ -290,7 +289,7 @@
   .banner-image-2 {
     max-width: 890px;
   }
-  /* Bottom Paragraphs */
+
   .btm-para-desktop {
     display: none;
     max-width: 375px;
@@ -316,7 +315,6 @@
     text-transform: uppercase;
   }
 
-  /* ========== Desktop Breakpoint (768px+) ========== */
   @media (min-width: 768px) {
     .navbar-desktop {
       display: block;
@@ -383,7 +381,6 @@
   }
 </style>
 <section class="banner-navbar" style="background-color: {{ section.settings.navbar_bg_color }};" id="navbar">
-  <!-- Desktop -->
   <div class="navbar-desktop">
     <div class="navbar-desktop-inner">
       <div>
@@ -419,7 +416,7 @@
       </a>
     </div>
   </div>
-  <!-- Mobile -->
+
   <div class="navbar-mobile">
     <div class="navbar-mobile-top">
       <button id="menu-btn" class="hamburger-btn">
@@ -481,7 +478,7 @@
       </div>
       <div class="navbar-mobile-spacer"></div>
     </div>
-    <!-- Card Content -->
+
     <div id="mobile-menu" class="mobile-menu">
       <div class="menu-card">
         <div class="menu-card-inner">
@@ -520,7 +517,7 @@
     document.querySelector('.hamburger-icon').classList.toggle('show');
     document.querySelector('.close-icon').classList.toggle('show');
   });
-  // Close menu when clicking outside
+
   document.addEventListener('click', (e) => {
     if (isOpen && !navbar.contains(e.target)) {
       closeMenu();
@@ -546,17 +543,17 @@
     <p class="banner-para-mobile">
       {{ section.settings.m_para_text }}
     </p>
-    <!-- Button -->
+
     <button class="banner-cta-btn gift-button navbar-gift-btn">
       <div class="gift-button-content navbar-gift-btn-inner">
         <span class="navbar-gift-btn-text">{{ section.settings.btn_text }}</span>
-        <!-- Right arrow -->
+
         <svg width="27" height="12" viewBox="0 0 27 12" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M0.75 4.77295L0 4.77295L0 6.27295L0.75 6.27295V4.77295ZM26.7876 6.05328C27.0805 5.76039 27.0805 5.28551 26.7876 4.99262L22.0146 0.21965C21.7217 -0.0732435 21.2468 -0.0732435 20.9539 0.21965C20.6611 0.512543 20.6611 0.987417 20.9539 1.28031L25.1966 5.52295L20.9539 9.76559C20.6611 10.0585 20.6611 10.5334 20.9539 10.8263C21.2468 11.1191 21.7217 11.1191 22.0146 10.8263L26.7876 6.05328ZM0.75 6.27295H26.2572V4.77295H0.75V6.27295Z" fill="white"/>
         </svg>
       </div>
     </button>
-    <!-- Top Image -->
+
     <div class="banner-image-1-wrap">
       {% if section.settings.image_1 != blank %}
         <img
@@ -576,7 +573,7 @@
     </div>
   </div>
 </section>
-<!-- Bottom Paragraph -->
+
 <div style="width: 100%; background-color: #f5f5f5;">
   <div class="btm-para-desktop">
     {{ section.settings.d_btm_para_text }}
