@@ -1,0 +1,679 @@
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ========== Base / Reset ========== */
+  .font-jost {
+    font-family: 'Jost', sans-serif;
+  }
+  /* ========== Gift Button ========== */
+  .gift-button {
+    position: relative;
+    overflow: hidden;
+  }
+  .gift-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: black;
+    transition: left 0.3s ease;
+    z-index: 1;
+  }
+  .gift-button:hover::before {
+    left: 0;
+  }
+  .gift-button-content {
+    position: relative;
+    z-index: 2;
+  }
+  .gift-button:hover .gift-button-content {
+    color: white;
+  }
+  .gift-button:hover svg path {
+    fill: white;
+    transition: fill 0.3s ease;
+  }
+  /* ========== Mobile Menu - Card Style ========== */
+  .mobile-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    z-index: 50;
+    background: transparent;
+    transform: translateY(-10%);
+  }
+  .mobile-menu.open {
+    max-height: 400px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* Navbar shadow when menu is open */
+  .navbar-shadow {
+    box-shadow: 0 2px 4px 0 #00000026;
+  }
+  /* Card content */
+  .menu-card {
+    background: #f2f2f2;
+    margin: 0 16px 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  /* Hamburger */
+  .hamburger-btn {
+    background: transparent;
+    padding: 8px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+  }
+  .hamburger-btn.active {
+    background: #f2f2f2;
+  }
+  .hamburger-icon,
+  .close-icon {
+    display: none;
+  }
+  .hamburger-icon.show,
+  .close-icon.show {
+    display: block;
+  }
+  /* ========== Navbar Section ========== */
+  .banner-navbar {
+    position: relative;
+  }
+  /* Desktop Navbar */
+  .navbar-desktop {
+    display: none;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px 50px;
+  }
+  .navbar-desktop-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .navbar-logo-img {
+    height: 2rem;
+    width: auto;
+  }
+  .navbar-shop-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: inherit;
+  }
+  .navbar-content-text {
+    font-family: 'Jost', sans-serif;
+    font-size: 16px;
+  }
+  .navbar-gift-btn {
+    min-width: 207px;
+    min-height: 44px;
+    background-color: #fff544;
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+  }
+  .navbar-gift-btn-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 44px;
+  }
+  .navbar-gift-btn-text {
+    font-family: 'Jost', sans-serif;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+  /* Mobile Navbar */
+  .navbar-mobile {
+    display: block;
+  }
+  .navbar-mobile-top {
+    height: 65px;
+    padding: 23px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+    background: inherit;
+  }
+  .navbar-mobile-logo-wrap {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .navbar-mobile-logo-img {
+    height: 1.5rem;
+    width: auto;
+  }
+  .navbar-mobile-shop-name {
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: inherit;
+  }
+  .navbar-mobile-spacer {
+    width: 2.5rem;
+  }
+  /* Mobile Menu Card Inner */
+  .menu-card-inner {
+    padding: 25px;
+    text-align: center;
+  }
+  .menu-card-text {
+    font-family: 'Jost', sans-serif;
+    font-size: 16px;
+    margin-bottom: 1.5rem;
+  }
+  .menu-gift-btn {
+    min-width: 244px;
+    min-height: 44px;
+    background-color: #fff544;
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+  }
+  /* ========== Banner Section ========== */
+  .banner-section {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .banner-container {
+    position: relative;
+    max-width: 375px;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 420px;
+  }
+  .banner-heading {
+    position: absolute;
+    max-width: 197px;
+    left: 88px;
+    top: 49px;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 100%;
+    letter-spacing: 0px;
+    font-family: 'Jost', sans-serif;
+    vertical-align: middle;
+    margin: 0;
+  }
+  .banner-para-desktop {
+    position: absolute;
+    display: none;
+    font-weight: 400;
+    color: black;
+    letter-spacing: 0px;
+    font-family: 'Jost', sans-serif;
+    margin: 0;
+  }
+  .banner-para-mobile {
+    position: absolute;
+    display: block;
+    max-width: 340px;
+    left: 16px;
+    font-weight: 400;
+    font-size: 16px;
+    text-align: center;
+    color: black;
+    line-height: 130%;
+    letter-spacing: 0px;
+    font-family: 'Jost', sans-serif;
+    top: 103px;
+    margin: 0;
+  }
+  .banner-cta-btn {
+    position: absolute;
+    max-width: 193px;
+    height: 45px;
+    top: 330px;
+    left: 90px;
+    display: flex;
+    align-items: center;
+    background-color: black;
+    color: white;
+    padding: 13px 40px;
+    font-family: 'Jost', sans-serif;
+    font-size: 16px;
+    line-height: 20.48px;
+    letter-spacing: 0px;
+    text-transform: uppercase;
+    gap: 10px;
+    z-index: 10;
+    border: none;
+    cursor: pointer;
+  }
+  /* ===== Banner Button Hover Override ===== */
+  .banner-cta-btn {
+    background-color: black;
+    color: white;
+  }
+
+  .banner-cta-btn::before {
+    background: #fff544;
+  }
+
+  .banner-cta-btn:hover .gift-button-content {
+    color: black;
+  }
+
+  .banner-cta-btn:hover svg path {
+    fill: black;
+  }
+
+  .banner-image-1-wrap {
+    max-width: 686px;
+    position: absolute;
+    top: 157px;
+    overflow: hidden;
+  }
+  .banner-image-1 {
+    width: 100%;
+    height: 264px;
+    object-fit: cover;
+    object-position: center;
+  }
+  .banner-image-2-wrap {
+    display: none;
+  }
+  .banner-image-2 {
+    max-width: 890px;
+  }
+  /* Bottom Paragraphs */
+  .btm-para-desktop {
+    display: none;
+    max-width: 375px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #f5f5f5;
+    padding: 0.5rem 0;
+    text-align: center;
+    font-size: 16px;
+    line-height: 20.48px;
+    text-transform: uppercase;
+  }
+  .btm-para-mobile {
+    display: block;
+    max-width: 375px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #f5f5f5;
+    padding: 0.5rem 0;
+    text-align: center;
+    font-size: 16px;
+    line-height: 20.48px;
+    text-transform: uppercase;
+  }
+
+  /* ========== Desktop Breakpoint (768px+) ========== */
+  @media (min-width: 768px) {
+    .navbar-desktop {
+      display: block;
+    }
+    .navbar-mobile {
+      display: none;
+    }
+    .banner-section {
+      max-width: 1440px;
+    }
+    .banner-container {
+      max-width: 1440px;
+      min-height: 0;
+    }
+    .banner-heading {
+      max-width: 459px;
+      left: 67px;
+      top: 414px;
+      font-size: 70px;
+    }
+    .banner-para-desktop {
+      display: block;
+      max-width: 489px;
+      left: 67px;
+      font-size: 20px;
+      line-height: 140%;
+      top: 534px;
+    }
+    .banner-para-mobile {
+      display: none;
+    }
+    .banner-cta-btn {
+      max-width: 220px;
+      height: 50px;
+      top: 668px;
+      left: 67px;
+      padding: 12px 45px;
+    }
+
+    .banner-image-1-wrap {
+      position: relative;
+      top: 0;
+      max-width: 1440px;
+    }
+    .banner-image-1 {
+      width: 100%;
+      height: auto;
+    }
+    .banner-image-2-wrap {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .btm-para-desktop {
+      display: block;
+      max-width: 1440px;
+    }
+    .btm-para-mobile {
+      display: none;
+      max-width: 1440px;
+    }
+  }
+</style>
+<section class="banner-navbar" style="background-color: {{ section.settings.navbar_bg_color }};" id="navbar">
+  <!-- Desktop -->
+  <div class="navbar-desktop">
+    <div class="navbar-desktop-inner">
+      <div>
+        {% if section.settings.logo %}
+          <a href="{{ section.settings.logo_link | default: routes.root_url }}">
+            <img
+              src="{{ section.settings.logo | img_url: '200x' }}"
+              alt="{{ shop.name }}"
+              class="navbar-logo-img"
+              loading="lazy"
+            >
+          </a>
+        {% else %}
+          <a href="{{ routes.root_url }}" class="navbar-shop-name">{{ shop.name }}</a>
+        {% endif %}
+      </div>
+      <p class="navbar-content-text">{{ section.settings.content }}</p>
+      <a
+        href="{{ section.settings.button_link | default: '#' }}"
+        class="gift-button navbar-gift-btn"
+      >
+        <div class="gift-button-content navbar-gift-btn-inner">
+          <span class="navbar-gift-btn-text">{{ section.settings['btn-text'] }}</span>
+          <svg
+            width="26"
+            height="12"
+            viewBox="0 0 26 12"
+            fill="none"
+          >
+            <path d="M0.75 4.77298L7.37629e-08 4.77298L-7.37629e-08 6.27298L0.75 6.27298L0.75 4.77298ZM25.2803 6.05331C25.5732 5.76042 25.5732 5.28554 25.2803 4.99265L20.5074 0.21968C20.2145 -0.073213 19.7396 -0.0732131 19.4467 0.21968C19.1538 0.512574 19.1538 0.987447 19.4467 1.28034L23.6893 5.52298L19.4467 9.76562C19.1538 10.0585 19.1538 10.5334 19.4467 10.8263C19.7396 11.1192 20.2145 11.1192 20.5074 10.8263L25.2803 6.05331ZM0.75 6.27298L24.75 6.27298L24.75 4.77298L0.75 4.77298L0.75 6.27298Z" fill="black" />
+          </svg>
+        </div>
+      </a>
+    </div>
+  </div>
+  <!-- Mobile -->
+  <div class="navbar-mobile">
+    <div class="navbar-mobile-top">
+      <button id="menu-btn" class="hamburger-btn">
+        <svg
+          class="hamburger-icon show"
+          width="20"
+          height="12"
+          viewBox="0 0 20 12"
+          fill="none"
+        >
+          <path
+            d="M1 6H19"
+            stroke="black"
+            stroke-width="2"
+            stroke-linecap="round" />
+          <path
+            d="M1 1H19"
+            stroke="black"
+            stroke-width="2"
+            stroke-linecap="round" />
+          <path
+            d="M1 11H19"
+            stroke="black"
+            stroke-width="2"
+            stroke-linecap="round" />
+        </svg>
+        <svg
+          class="close-icon"
+          width="15"
+          height="15"
+          viewBox="0 0 15 15"
+          fill="none"
+        >
+          <path
+            d="M1 13.9994L13.7279 1.27147"
+            stroke="black"
+            stroke-width="2"
+            stroke-linecap="round" />
+          <path
+            d="M1 1L13.7279 13.7279"
+            stroke="black"
+            stroke-width="2"
+            stroke-linecap="round" />
+        </svg>
+      </button>
+      <div class="navbar-mobile-logo-wrap">
+        {% if section.settings.logo %}
+          <a href="{{ section.settings.logo_link | default: routes.root_url }}">
+            <img
+              src="{{ section.settings.logo | img_url: '150x' }}"
+              alt="{{ shop.name }}"
+              class="navbar-mobile-logo-img"
+              loading="lazy"
+            >
+          </a>
+        {% else %}
+          <a href="{{ routes.root_url }}" class="navbar-mobile-shop-name">{{ shop.name }}</a>
+        {% endif %}
+      </div>
+      <div class="navbar-mobile-spacer"></div>
+    </div>
+    <!-- Card Content -->
+    <div id="mobile-menu" class="mobile-menu">
+      <div class="menu-card">
+        <div class="menu-card-inner">
+          <p class="menu-card-text">{{ section.settings.content }}</p>
+          <a
+            href="{{ section.settings.button_link | default: '#' }}"
+            class="gift-button menu-gift-btn"
+          >
+            <div class="gift-button-content navbar-gift-btn-inner">
+              <span class="navbar-gift-btn-text">{{ section.settings['btn-text'] }}</span>
+              <svg
+                width="26"
+                height="12"
+                viewBox="0 0 26 12"
+                fill="none"
+              >
+                <path d="M0.75 4.77298L7.37629e-08 4.77298L-7.37629e-08 6.27298L0.75 6.27298L0.75 4.77298ZM25.2803 6.05331C25.5732 5.76042 25.5732 5.28554 25.2803 4.99265L20.5074 0.21968C20.2145 -0.073213 19.7396 -0.0732131 19.4467 0.21968C19.1538 0.512574 19.1538 0.987447 19.4467 1.28034L23.6893 5.52298L19.4467 9.76562C19.1538 10.0585 19.1538 10.5334 19.4467 10.8263C19.7396 11.1192 20.2145 11.1192 20.5074 10.8263L25.2803 6.05331ZM0.75 6.27298L24.75 6.27298L24.75 4.77298L0.75 4.77298L0.75 6.27298Z" fill="black" />
+              </svg>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const navbar = document.getElementById('navbar');
+  let isOpen = false;
+  menuBtn.addEventListener('click', () => {
+    isOpen = !isOpen;
+    mobileMenu.classList.toggle('open');
+    menuBtn.classList.toggle('active');
+    navbar.classList.toggle('navbar-shadow');
+    document.querySelector('.hamburger-icon').classList.toggle('show');
+    document.querySelector('.close-icon').classList.toggle('show');
+  });
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (isOpen && !navbar.contains(e.target)) {
+      closeMenu();
+    }
+  });
+  function closeMenu() {
+    isOpen = false;
+    mobileMenu.classList.remove('open');
+    menuBtn.classList.remove('active');
+    navbar.classList.remove('navbar-shadow');
+    document.querySelector('.hamburger-icon').classList.add('show');
+    document.querySelector('.close-icon').classList.remove('show');
+  }
+</script>
+<section class="banner-section">
+  <div class="banner-container">
+    <h1 class="banner-heading">
+      {{ section.settings.heading }}
+    </h1>
+    <p class="banner-para-desktop">
+      {{ section.settings.d_para_text }}
+    </p>
+    <p class="banner-para-mobile">
+      {{ section.settings.m_para_text }}
+    </p>
+    <!-- Button -->
+    <button class="banner-cta-btn gift-button navbar-gift-btn">
+      <div class="gift-button-content navbar-gift-btn-inner">
+        <span class="navbar-gift-btn-text">{{ section.settings.btn_text }}</span>
+        <!-- Right arrow -->
+        <svg width="27" height="12" viewBox="0 0 27 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0.75 4.77295L0 4.77295L0 6.27295L0.75 6.27295V4.77295ZM26.7876 6.05328C27.0805 5.76039 27.0805 5.28551 26.7876 4.99262L22.0146 0.21965C21.7217 -0.0732435 21.2468 -0.0732435 20.9539 0.21965C20.6611 0.512543 20.6611 0.987417 20.9539 1.28031L25.1966 5.52295L20.9539 9.76559C20.6611 10.0585 20.6611 10.5334 20.9539 10.8263C21.2468 11.1191 21.7217 11.1191 22.0146 10.8263L26.7876 6.05328ZM0.75 6.27295H26.2572V4.77295H0.75V6.27295Z" fill="white"/>
+        </svg>
+      </div>
+    </button>
+    <!-- Top Image -->
+    <div class="banner-image-1-wrap">
+      {% if section.settings.image_1 != blank %}
+        <img
+          src="{{ section.settings.image_1 | image_url }}"
+          class="banner-image-1"
+        >
+      {% else %}
+        {{ 'lifestyle-1' | placeholder_svg_tag }}
+      {% endif %}
+    </div>
+    <div class="banner-image-2-wrap">
+      {% if section.settings.image_2 != blank %}
+        <img src="{{ section.settings.image_2 | image_url }}" class="banner-image-2">
+      {% else %}
+        {{ 'lifestyle-2' | placeholder_svg_tag }}
+      {% endif %}
+    </div>
+  </div>
+</section>
+<!-- Bottom Paragraph -->
+<div style="width: 100%; background-color: #f5f5f5;">
+  <div class="btm-para-desktop">
+    {{ section.settings.d_btm_para_text }}
+  </div>
+  <div class="btm-para-mobile">
+    {{ section.settings.m_btm_para_text }}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Banner",
+  "settings": [
+    {
+      "type": "color",
+      "id": "navbar_bg_color",
+      "label": "Background Color",
+      "default": "#F5F5F5"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "url",
+      "id": "logo_link",
+      "label": "Logo Link"
+    },
+    {
+      "type": "text",
+      "id": "content",
+      "label": "Content",
+      "default": "Find the ideal gift for your loved ones."
+    },
+    {
+      "type": "text",
+      "id": "btn-text",
+      "label": "Button Text",
+      "default": "choose gift"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      "default": "/"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "text",
+      "id": "d_para_text",
+      "label": "Desktop Paragraph Text",
+      "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
+    },
+    {
+      "type": "text",
+      "id": "m_para_text",
+      "label": "Mobile Paragraph Text",
+      "default": "Discover Joy: Your Ultimate Holiday Gift Destination."
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Text",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Banner Second Image"
+    },
+    {
+      "type": "text",
+      "id": "d_btm_para_text",
+      "label": "Desktop Bottom Para Text",
+      "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+    },
+    {
+      "type": "text",
+      "id": "m_btm_para_text",
+      "label": "Mobile Bottom Para Text",
+      "default": "SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner"
+    }
+  ]
+}
+{% endschema %}
